@@ -1,4 +1,3 @@
-# scala_intermediate
 //################## Currying ###########################
 
 //curried function with 3 param groups
@@ -8,12 +7,11 @@ def totalCost(donutType: String)(quantity: Int)(discount: Double,tax:Int): Doubl
   totalCost - (totalCost * discount)
 }
 
-totalCost("df")_
 totalCost("asf")(3)(4.0,2)
 
 //################## partial functions ##################
 //note the syntax for type of partial function.
-val costForX: (Int) => (Double, Int) => Double = totalCost("X")//alternate syntax is totalCost("X")_
+val costForX: (Int) => (Double, Int) => Double = totalCost("X")_//alternate syntax is totalCost("X")
 costForX(3)(4.0,2)
 
 //#################### named functions #####################
@@ -24,6 +22,13 @@ val taxCal: (Double) => Double = (x:Double) => x*1.1
 val taxCal1 = (x:Double) => x*1.1
 //not so better way with type inference for params
 val taxCal2: (Double) => Double = (x) => x*1.1
+
+//converting any method to a named function
+def method(s:String,i:Int): Double = { i.toDouble}
+val func: (String, Int) => Double = method _
+//converting a curried to named function
+val totalCostFunc: (String) => (Int) => (Double, Int) => Double = totalCost _
+
 
 //################## higher order functions ##################
 
@@ -114,24 +119,3 @@ def printReport(s:String*): Unit ={
 printReport("afasf","asfasf","fasfasf")
 //printReport(List("dqwwq","fwfqsf"))//wont compile
 printReport(List("dqwwq","fwfqsf"):_*)//type ascription
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
